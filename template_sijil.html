@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <title>Akuan Pendaftaran Kontraktor / Pembekal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0 !important;
+        }
+
+        html, body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f5f9;
+        }
+
+        .cert-container {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        .cert-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            z-index: 1;
+        }
+
+        .cert-details-group {
+            position: absolute;
+            top: 419px;        /* Kedudukan mula ID PELANGGAN */
+            left: 150px;       
+            width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;          /* Jarak automatik antara setiap baris */
+            z-index: 2;
+        }
+
+        .text-field-row {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+            font-size: 17px;
+            color: #000000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        /* LEBAR TETAP LABEL (Pastikan muat label paling panjang "GRED / KATEGORI") */
+        .lbl {
+            width: 160px;
+            flex-shrink: 0;
+        }
+
+        /* LEBAR TETAP SIMBOL TITIK DUA */
+        .cln {
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* NILAI DINAMIK (AUTO-WRAP JIKA TEKS PANJANG) */
+        .val {
+            flex: 1;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        /* KEDUDUKAN (TOP & LEFT) */
+        .field-siri {
+            position: absolute;
+            top: 360px;
+            left: 520px;
+            font-size: 12px;
+            width: 250px;
+            z-index: 2;
+        }
+        .field-siri .lbl { width: 80px; }
+
+        @media print {
+            html, body, .cert-container {
+                width: 210mm;
+                height: 297mm;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cert-container">
+        <img src="{{IMAGE_BASE64}}" class="cert-bg" alt="Template Sijil">
+        <!--img src="sijil_template.jpg" class="cert-bg" alt="Template Sijil"-->
+
+<!-- NO SIRI (Kekal di posisi atas kanan) -->
+    <div class="text-field-row field-siri">
+        <span class="lbl">NO. SIRI</span><span class="cln">:</span><span class="val">{{SIRI}}</span>
+    </div>
+
+    <!-- KUMPULAN MAKLUMAT DINAMIK (PILIH TERUS SUSUNAN BERURUTAN) -->
+    <div class="cert-details-group">
+        <div class="text-field-row">
+            <span class="lbl">ID PELANGGAN</span><span class="cln">:</span><span class="val">{{ID}}</span>
+        </div>
+
+        <div class="text-field-row">
+            <span class="lbl">TARIKH MULA</span><span class="cln">:</span><span class="val">{{MULA}}</span>
+        </div>
+
+        <div class="text-field-row">
+            <span class="lbl">TARIKH TAMAT</span><span class="cln">:</span><span class="val">{{TAMAT}}</span>
+        </div>
+
+        <div class="text-field-row" style="text-transform: uppercase;">
+            <span class="lbl">NAMA SYARIKAT</span><span class="cln">:</span><span class="val">{{SYARIKAT}}</span>
+        </div>
+
+        <!-- ALAMAT JIKA SHORT DUDUK 1 BARIS, JIKA LONG WRAP DENGAN KEMAS -->
+        <div class="text-field-row">
+            <span class="lbl">ALAMAT</span><span class="cln">:</span><span class="val">{{ALAMAT}}</span>
+        </div>
+
+        <div class="text-field-row" style="text-transform: uppercase;">
+            <span class="lbl">NAMA PEGAWAI</span><span class="cln">:</span><span class="val">{{PEGAWAI}}</span>
+        </div>
+
+        <div class="text-field-row">
+            <span class="lbl">GRED / KATEGORI</span><span class="cln">:</span><span class="val">{{GRED}}</span>
+        </div>
+    </div>
+</div>
+
+    <div style="text-align: center; margin: 20px 0;" class="no-print">
+        <button onclick="window.print()" style="padding: 10px 25px; font-weight: bold; background: #8D5B4C; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Cetak / Simpan PDF
+        </button>
+    </div>
+
+</body>
+</html>
